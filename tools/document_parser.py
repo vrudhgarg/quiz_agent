@@ -1,6 +1,7 @@
 from smolagents import Tool
 from pathlib import Path
 import pymupdf
+from docx import Document
 class DocumentParserTool(Tool):
     # Unique identifier - agent uses this name to call the tool
     name = "document_parser"
@@ -38,6 +39,9 @@ class DocumentParserTool(Tool):
 
         if suffix in [".pdf"]:
             return self._parse_pdf(path)
+        
+        if suffix in [".docx"]:
+            return self._parse_docx(path)
 
         # TODO: Add parsing logic for each format
         return f"TODO: parse {suffix} file"
@@ -51,3 +55,8 @@ class DocumentParserTool(Tool):
 
         return "\n".join(text_parts)
 
+    def _parse_docx(self, path : Path) -> str:
+        """ Extracts text from DOCX using python-docx """
+        doc = Document(path)
+        return "\n".join([para.text for para in doc.paragraphs])
+        
