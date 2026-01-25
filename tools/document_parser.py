@@ -1,6 +1,6 @@
 from smolagents import Tool
 from pathlib import Path
-
+import pymupdf
 class DocumentParserTool(Tool):
     # Unique identifier - agent uses this name to call the tool
     name = "document_parser"
@@ -35,6 +35,19 @@ class DocumentParserTool(Tool):
 
         if suffix in [".txt", ".md"]:
             return path.read_text(encoding="utf8")
-            
+
+        if suffix in [".pdf"]:
+            return self._parse_pdf(path)
+
         # TODO: Add parsing logic for each format
         return f"TODO: parse {suffix} file"
+
+    def _parse_pdf(self, path: Path) -> str:
+        "Extracts text from PDF using pymupdf"
+        text_parts = []
+        with pymupdf.open(path) as doc:
+            for page in doc:
+                text_parts.append(page.get_text())
+
+        return "\n".join(text_parts)
+
