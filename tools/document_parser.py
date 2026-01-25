@@ -33,5 +33,8 @@ class DocumentParserTool(Tool):
         # Get file extension (e.g., ".pdf", ".txt")
         suffix = path.suffix.lower()
 
+        if suffix in [".txt", ".md"]:
+            return path.read_text(encoding="utf8")
+            
         # TODO: Add parsing logic for each format
         return f"TODO: parse {suffix} file"
