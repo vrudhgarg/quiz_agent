@@ -1,4 +1,5 @@
 from tools.question_generator import QuestionGeneratorTool
+from models import Question
 
 # Create the tool
 generator = QuestionGeneratorTool()
@@ -13,4 +14,12 @@ result = generator.forward(
     question_type="multiple_choice"
 )
 
-print(result)
+# Parse into Question objects
+questions = Question.from_json(result)
+
+# Print each question
+for i, q in enumerate(questions, 1):
+    print(f"Question {i}: {q.question_text}")
+    print(f"Answer: {q.correct_answer}")
+    print(f"Options: {q.options}")
+    print()
