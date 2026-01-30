@@ -26,7 +26,7 @@ class AnswerEvaluatorTool(Tool):
     }
 
     # What this tool returns
-    output_string = "string"
+    output_type = "string"
 
     def forward(self, user_answer : str, correct_answer : str, question_type: str) -> str:
         ''' Evaluates the user answer'''
