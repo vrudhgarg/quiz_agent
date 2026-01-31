@@ -28,3 +28,18 @@ result = evaluator.forward(
     question_type="mcq"
 )
 print(f"Test 3 (should be correct): {result}")
+
+# Test short answer - same meaning, different words
+result = evaluator.forward(
+    user_answer='AI is a branch of computer science',
+    correct_answer='Aritifical Intelligence is a part of computer science',
+    question_type="short_answer"
+)
+print(f"Short answer (same meaning): {result}")
+
+result = evaluator.forward(
+    user_answer="Machine learning is about robots",
+    correct_answer="Machine learning uses data to learn patterns",
+    question_type="short_answer"
+)
+print(f"Short answer (wrong): {result}")
