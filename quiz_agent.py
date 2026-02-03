@@ -16,6 +16,6 @@ agent = CodeAgent(
     model = model
 )
 
-# Test it
-result = agent.run("What tools do you have available?")
+# Test: Generate quiz from our test file
+result = agent.run("Read the file test_notes.txt and generate 2 multiple choice questions from it.")
 print(result)
